@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { readStoredJson } from '@/lib/storage'
+import { readStoredJson, writeRaw } from '@/lib/storage'
 
 export interface AppNotification {
   id: string
@@ -62,9 +62,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
   const unreadCount = computed(() => list.value.filter((n) => !n.isRead).length)
 
   function save() {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(list.value))
-    }
+    writeRaw(STORAGE_KEY, JSON.stringify(list.value))
   }
 
   function markAsRead(id: string) {

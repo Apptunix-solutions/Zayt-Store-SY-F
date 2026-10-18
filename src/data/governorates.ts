@@ -21,6 +21,3 @@ export const syrianGovernorates: SyrianGovernorate[] = [
   { id: 'hasakah', nameAr: 'الحسكة', nameEn: 'Al-Hasakah', region: 'المنطقة الشرقية' },
   { id: 'raqqa', nameAr: 'الرقة', nameEn: 'Ar-Raqqah', region: 'المنطقة الشرقية' },
 ]
-
-export const governorateNamesAr = syrianGovernorates.map((g) => g.nameAr)
-export const governorateNamesEn = syrianGovernorates.map((g) => g.nameEn)

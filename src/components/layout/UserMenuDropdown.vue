@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import {
   Bell,
@@ -14,6 +14,7 @@ import {
 } from 'lucide-vue-next'
 import { useAuthStore } from '@/stores/auth'
 import { useLocaleStore } from '@/stores/locale'
+import { useClickOutside } from '@/composables/useClickOutside'
 import { toast } from '@/lib/toast'
 
 const auth = useAuthStore()
@@ -35,6 +36,10 @@ function navigateTo(path: string) {
   router.push(path)
 }
 
+useClickOutside(dropdownRef, () => {
+  isOpen.value = false
+})
+
 function handleLogout() {
   isOpen.value = false
   auth.logout()
@@ -43,20 +48,6 @@ function handleLogout() {
     locale.isArabic ? 'نراك قريباً في ZaytStore!' : 'See you soon at ZaytStore!',
   )
 }
-
-function handleClickOutside(e: MouseEvent) {
-  if (dropdownRef.value && !dropdownRef.value.contains(e.target as Node)) {
-    isOpen.value = false
-  }
-}
-
-onMounted(() => {
-  document.addEventListener('mousedown', handleClickOutside)
-})
-
-onBeforeUnmount(() => {
-  document.removeEventListener('mousedown', handleClickOutside)
-})
 </script>
 
 <template>

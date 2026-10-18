@@ -43,7 +43,7 @@ const emit = defineEmits<{
       class="flex items-center justify-between outline-none transition disabled:cursor-not-allowed disabled:opacity-50"
       :class="
         props.class ||
-        'h-[42px] w-full rounded-[10px] border border-[var(--line)] bg-[var(--input)] px-3 text-[12px] text-[var(--text)] focus:border-[#f5a710] focus:ring-1 focus:ring-[#f5a710]/50'
+        'h-[42px] w-full rounded-[10px] border border-[var(--line)] bg-[var(--input)] px-3 text-[12px] text-[var(--text)] focus:border-[#E8A020] focus:ring-1 focus:ring-[#E8A020]/50'
       "
     >
       <SelectValue :placeholder="placeholder" />
@@ -66,7 +66,7 @@ const emit = defineEmits<{
             :key="typeof option === 'string' ? option : option.value"
             :value="typeof option === 'string' ? option : option.value"
             :disabled="typeof option === 'object' ? option.disabled : false"
-            class="relative flex w-full cursor-default select-none items-center rounded-lg py-1.5 pl-8 pr-2 text-[12px] font-medium outline-none focus:bg-[#f5a710]/15 focus:text-[#f5a710] data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+            class="relative flex w-full cursor-default select-none items-center rounded-lg py-1.5 pl-8 pr-2 text-[12px] font-medium outline-none focus:bg-[#E8A020]/15 focus:text-[#E8A020] data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
           >
             <span class="absolute left-2.5 flex h-3.5 w-3.5 items-center justify-center">
               <SelectItemIndicator>

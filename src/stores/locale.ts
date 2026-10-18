@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
+import { readRaw, writeRaw } from '@/lib/storage'
 
 export type AppLocale = 'ar' | 'en'
 
@@ -35,8 +36,7 @@ const translations: Record<string, { ar: string; en: string }> = {
 }
 
 export const useLocaleStore = defineStore('locale', () => {
-  const saved =
-    typeof window !== 'undefined' ? (localStorage.getItem(STORAGE_KEY) as AppLocale) : null
+  const saved = readRaw(STORAGE_KEY) as AppLocale | null
   const current = ref<AppLocale>(saved === 'en' ? 'en' : 'ar')
 
   const isArabic = computed(() => current.value === 'ar')
@@ -56,7 +56,7 @@ export const useLocaleStore = defineStore('locale', () => {
       document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'
     }
     if (typeof window !== 'undefined') {
-      localStorage.setItem(STORAGE_KEY, lang)
+      writeRaw(STORAGE_KEY, lang)
     }
   }
 

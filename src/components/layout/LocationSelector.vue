@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { Check, ChevronDown, MapPin, Phone } from 'lucide-vue-next'
 import { useAuthStore } from '@/stores/auth'
+import { useClickOutside } from '@/composables/useClickOutside'
 import { toast } from '@/lib/toast'
 
 import { syrianGovernorates } from '@/data/governorates'
@@ -12,25 +13,15 @@ const dropdownRef = ref<HTMLElement | null>(null)
 
 const cities = syrianGovernorates.map((g) => g.nameAr)
 
+useClickOutside(dropdownRef, () => {
+  isOpen.value = false
+})
+
 function selectCity(city: string) {
   auth.setLocation(city)
   isOpen.value = false
   toast.success('تم تغيير موقع التوصيل', `الموقع الحالي: ${city}، سوريا`)
 }
-
-function handleClickOutside(e: MouseEvent) {
-  if (dropdownRef.value && !dropdownRef.value.contains(e.target as Node)) {
-    isOpen.value = false
-  }
-}
-
-onMounted(() => {
-  document.addEventListener('mousedown', handleClickOutside)
-})
-
-onBeforeUnmount(() => {
-  document.removeEventListener('mousedown', handleClickOutside)
-})
 </script>
 
 <template>

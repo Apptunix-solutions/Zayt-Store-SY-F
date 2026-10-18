@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
+import { readRaw, writeRaw } from '@/lib/storage'
 
 export type Theme = 'dark' | 'light'
 export type AuthMode = 'login' | 'register'
@@ -7,7 +8,7 @@ export type AuthMode = 'login' | 'register'
 const urlTheme =
   typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('theme') : null
 const savedTheme =
-  urlTheme === 'light' || urlTheme === 'dark' ? urlTheme : localStorage.getItem('zaytstore-theme')
+  urlTheme === 'light' || urlTheme === 'dark' ? urlTheme : readRaw('zaytstore-theme')
 
 export const useUiStore = defineStore('ui', () => {
   const theme = ref<Theme>(savedTheme === 'light' ? 'light' : 'dark')
@@ -37,7 +38,7 @@ export const useUiStore = defineStore('ui', () => {
     document
       .querySelector('meta[name="theme-color"]')
       ?.setAttribute('content', nextTheme === 'light' ? '#F4F6F8' : '#0B0D10')
-    localStorage.setItem('zaytstore-theme', nextTheme)
+    writeRaw('zaytstore-theme', nextTheme)
   }
 
   function toggle() {

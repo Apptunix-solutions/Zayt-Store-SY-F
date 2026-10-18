@@ -34,8 +34,20 @@ const ordersSchema = z.array(
   }),
 )
 
+/** معرّف طلب عشوائي آمن — مع بديل للمتصفحات/السياقات التي تفتقر إلى crypto.randomUUID */
+function randomId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+  if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
+    const bytes = crypto.getRandomValues(new Uint8Array(10))
+    return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('')
+  }
+  return Array.from({ length: 20 }, () => Math.floor(Math.random() * 16).toString(16)).join('')
+}
+
 function createOrderId() {
-  return `ZYT-${crypto.randomUUID().replace(/-/g, '').slice(0, 10).toUpperCase()}`
+  return `ZYT-${randomId().replace(/-/g, '').slice(0, 10).toUpperCase()}`
 }
 
 export const useOrdersStore = defineStore('orders', () => {

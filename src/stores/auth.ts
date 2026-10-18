@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { readStoredJson } from '@/lib/storage'
+import { readStoredJson, readRaw, writeRaw, removeRaw } from '@/lib/storage'
 
 export interface UserAccount {
   id: string
@@ -16,13 +16,19 @@ export interface UserAccount {
 const STORAGE_KEY = 'zaytstore_auth_user'
 const LOCATION_KEY = 'zaytstore_current_location'
 
+const DEFAULT_AVATAR =
+  'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120&q=80'
+const GOOGLE_AVATAR =
+  'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&h=120&q=80'
+const FACEBOOK_AVATAR =
+  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80'
+
 const defaultUser: UserAccount = {
   id: 'usr-101',
   name: 'عمر حسن الخالد',
   email: 'omar.khalid@gmail.com',
   phone: '0944 123 456',
-  avatar:
-    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120&q=80',
+  avatar: DEFAULT_AVATAR,
   role: 'customer',
   provider: 'local',
   location: 'دمشق',
@@ -40,7 +46,7 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref<UserAccount | null>(initialUser ?? defaultUser)
   const isLoggedIn = computed(() => user.value !== null)
 
-  const savedLoc = typeof window !== 'undefined' ? localStorage.getItem(LOCATION_KEY) : null
+  const savedLoc = readRaw(LOCATION_KEY)
   const selectedLocation = ref<string>(savedLoc || 'دمشق')
 
   const supportPhone = ref('+963 11 9876')
@@ -49,63 +55,59 @@ export const useAuthStore = defineStore('auth', () => {
   function save() {
     if (typeof window !== 'undefined') {
       if (user.value) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(user.value))
+        writeRaw(STORAGE_KEY, JSON.stringify(user.value))
       } else {
-        localStorage.removeItem(STORAGE_KEY)
+        removeRaw(STORAGE_KEY)
       }
     }
   }
 
   function setLocation(loc: string) {
     selectedLocation.value = loc
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(LOCATION_KEY, loc)
-    }
+    writeRaw(LOCATION_KEY, loc)
+  }
+
+  /** ينشئ جلسة مستخدم من بيانات مُعمّمة ويحفظها — يجمع تسجيل الدخول الثلاث في مكان واحد. */
+  function setSession(input: Omit<UserAccount, 'location'> & { location?: string }) {
+    const { location, ...rest } = input
+    user.value = { ...rest, location: location ?? selectedLocation.value }
+    save()
   }
 
   function login(credentials: { email: string; name?: string; role?: 'customer' | 'merchant' }) {
-    user.value = {
+    setSession({
       id: 'usr-' + Date.now().toString(36),
       name: credentials.name || credentials.email.split('@')[0] || 'عمر خالد',
       email: credentials.email,
       phone: '0944 123 456',
-      avatar:
-        'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120&q=80',
+      avatar: DEFAULT_AVATAR,
       role: credentials.role || 'customer',
       provider: 'local',
-      location: selectedLocation.value,
-    }
-    save()
+    })
   }
 
   function loginWithGoogle() {
-    user.value = {
+    setSession({
       id: 'goog-' + Date.now().toString(36),
       name: 'أحمد المحمد',
       email: 'ahmed.mohamad@gmail.com',
       phone: '0991 888 777',
-      avatar:
-        'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&h=120&q=80',
+      avatar: GOOGLE_AVATAR,
       role: 'customer',
       provider: 'google',
-      location: selectedLocation.value,
-    }
-    save()
+    })
   }
 
   function loginWithFacebook() {
-    user.value = {
+    setSession({
       id: 'fb-' + Date.now().toString(36),
       name: 'سامر خليل',
       email: 'samer.khalil@facebook.com',
       phone: '0933 555 444',
-      avatar:
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80',
+      avatar: FACEBOOK_AVATAR,
       role: 'customer',
       provider: 'facebook',
-      location: selectedLocation.value,
-    }
-    save()
+    })
   }
 
   function logout() {

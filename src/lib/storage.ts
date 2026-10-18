@@ -53,3 +53,31 @@ export function removeStored(key: string) {
     // Storage unavailable.
   }
 }
+
+/**
+ * نسخ الخام الآمنة من واجهة التخزين: عند حجب التخزين (وضع التصفح الخاص في
+ * Safari أو داخل صفحات ويب مضمّنة) تُعيد null/no-op بدل إسقاط التطبيق.
+ */
+export function readRaw(key: string): string | null {
+  try {
+    return localStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+export function writeRaw(key: string, value: string) {
+  try {
+    localStorage.setItem(key, value)
+  } catch {
+    // Quota exceeded or storage blocked; keep in-memory state only.
+  }
+}
+
+export function removeRaw(key: string) {
+  try {
+    localStorage.removeItem(key)
+  } catch {
+    // Storage unavailable.
+  }
+}

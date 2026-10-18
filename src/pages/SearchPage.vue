@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { formatPrice } from '@/lib/utils'
-import { readStoredJson } from '@/lib/storage'
+import { readStoredJson, writeRaw, removeRaw } from '@/lib/storage'
 import { computed, ref } from 'vue'
 import { ArrowRight, Clock3, Search, X } from 'lucide-vue-next'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
@@ -32,7 +32,7 @@ function useRecent(value: string) {
 }
 function clearRecent() {
   recent.value = []
-  localStorage.removeItem('zaytstore-recent-searches')
+  removeRaw('zaytstore-recent-searches')
 }
 function openShop() {
   const value = query.value.trim()
@@ -41,7 +41,7 @@ function openShop() {
     value,
     ...recent.value.filter((item) => item.toLowerCase() !== value.toLowerCase()),
   ].slice(0, 6)
-  localStorage.setItem('zaytstore-recent-searches', JSON.stringify(recent.value))
+  writeRaw('zaytstore-recent-searches', JSON.stringify(recent.value))
   router.push({ path: '/search', query: { q: value } })
 }
 </script>

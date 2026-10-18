@@ -52,10 +52,9 @@ const reviews: Review[] = [
  * كتالوج zaytstores.com كامل — 25 منتجاً حقيقياً (23 زيت محرك + ATF II / ATF III)
  * بنفس الأسماء والعلامات والأسعار بالدولار وصور Cloudinary المعروضة على الموقع.
  */
-export const products: Product[] = [
+const catalog: Omit<Product, 'slug'>[] = [
   {
     id: 'a0108a83-aa50-49b8-a484-e1701b673ac3',
-    slug: 'a0108a83-aa50-49b8-a484-e1701b673ac3',
     name: '10W40 4L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -80,7 +79,6 @@ export const products: Product[] = [
   },
   {
     id: '7626af40-89fb-49ff-ab7f-e43db855fb71',
-    slug: '7626af40-89fb-49ff-ab7f-e43db855fb71',
     name: '20W50 4L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -104,7 +102,6 @@ export const products: Product[] = [
   },
   {
     id: '4d97920c-4a75-4c11-a117-2411de6774f5',
-    slug: '4d97920c-4a75-4c11-a117-2411de6774f5',
     name: '20W50 5L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -128,7 +125,6 @@ export const products: Product[] = [
   },
   {
     id: 'bb8a902a-98a8-4ad7-884f-f8b8d91caad5',
-    slug: 'bb8a902a-98a8-4ad7-884f-f8b8d91caad5',
     name: 'Hydraulic 48',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -157,7 +153,6 @@ export const products: Product[] = [
   },
   {
     id: '75745a7e-dd18-42f0-af06-5f1c566f8e18',
-    slug: '75745a7e-dd18-42f0-af06-5f1c566f8e18',
     name: 'Hydraulic 68',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -186,7 +181,6 @@ export const products: Product[] = [
   },
   {
     id: '69476055-9d92-495d-adbe-42b7e51afc70',
-    slug: '69476055-9d92-495d-adbe-42b7e51afc70',
     name: 'ATF II',
     brand: 'king oil',
     category: 'Transmission',
@@ -216,7 +210,6 @@ export const products: Product[] = [
   },
   {
     id: 'f6cc3b0e-f984-4da0-95c9-91b680af93c2',
-    slug: 'f6cc3b0e-f984-4da0-95c9-91b680af93c2',
     name: 'ATF III',
     brand: 'king oil',
     category: 'Transmission',
@@ -246,7 +239,6 @@ export const products: Product[] = [
   },
   {
     id: '9dd8691f-c815-4d4b-bf8f-85351f18ec50',
-    slug: '9dd8691f-c815-4d4b-bf8f-85351f18ec50',
     name: 'زيت محرك رانيول الالماني',
     brand: 'RANYOL',
     category: 'Engine Oil',
@@ -276,7 +268,6 @@ export const products: Product[] = [
   },
   {
     id: 'c01e4664-c12b-4cdc-a87b-620ffb9d66ec',
-    slug: 'c01e4664-c12b-4cdc-a87b-620ffb9d66ec',
     name: 'زيت رانيول 5W-40 ck معالج بتقنية النانو سيراميك',
     brand: 'RANYOL',
     category: 'Engine Oil',
@@ -307,7 +298,6 @@ export const products: Product[] = [
   },
   {
     id: 'bfe0ea34-6bfc-4a84-bff1-cd5762faf0b0',
-    slug: 'bfe0ea34-6bfc-4a84-bff1-cd5762faf0b0',
     name: '0W30 4L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -331,7 +321,6 @@ export const products: Product[] = [
   },
   {
     id: 'd6871ae0-f911-49b1-8329-9e14e72fdf62',
-    slug: 'd6871ae0-f911-49b1-8329-9e14e72fdf62',
     name: '5W30 5L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -356,7 +345,6 @@ export const products: Product[] = [
   },
   {
     id: 'b280dfa4-abe5-490b-9ab3-ce7371608131',
-    slug: 'b280dfa4-abe5-490b-9ab3-ce7371608131',
     name: '0W20 4L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -380,7 +368,6 @@ export const products: Product[] = [
   },
   {
     id: '6188da3a-4fd9-43c0-a12c-5fc96ab428f4',
-    slug: '6188da3a-4fd9-43c0-a12c-5fc96ab428f4',
     name: '10W40 1L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -404,7 +391,6 @@ export const products: Product[] = [
   },
   {
     id: '5f97946c-2f36-4d68-84bb-8d23dd36031f',
-    slug: '5f97946c-2f36-4d68-84bb-8d23dd36031f',
     name: '5W30 4L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -428,7 +414,6 @@ export const products: Product[] = [
   },
   {
     id: '93a520b2-bd6a-4364-a9e0-31affb96dc33',
-    slug: '93a520b2-bd6a-4364-a9e0-31affb96dc33',
     name: '5W30 1L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -451,7 +436,6 @@ export const products: Product[] = [
   },
   {
     id: '0790b22e-b982-41cd-bc16-75c3f8f14838',
-    slug: '0790b22e-b982-41cd-bc16-75c3f8f14838',
     name: 'زيت زيت',
     brand: 'G',
     category: 'Engine Oil',
@@ -474,7 +458,6 @@ export const products: Product[] = [
   },
   {
     id: 'b6fbb5fd-2956-4401-bb4f-ce34ec6d6381',
-    slug: 'b6fbb5fd-2956-4401-bb4f-ce34ec6d6381',
     name: 'زيت رانيول 15w40 معالج بتقنية النانو سيراميك',
     brand: 'RANYOL',
     category: 'Engine Oil',
@@ -505,7 +488,6 @@ export const products: Product[] = [
   },
   {
     id: 'e61a2874-0f7b-4c74-a3cb-56748d32f5d2',
-    slug: 'e61a2874-0f7b-4c74-a3cb-56748d32f5d2',
     name: 'زيت محرك رانيول 10w40 ck',
     brand: 'RANYOL',
     category: 'Engine Oil',
@@ -534,7 +516,6 @@ export const products: Product[] = [
   },
   {
     id: '508caff9-a2be-41ba-a4e9-c155e855a862',
-    slug: '508caff9-a2be-41ba-a4e9-c155e855a862',
     name: 'زيت لومو 5w30',
     brand: 'LOMU',
     category: 'Engine Oil',
@@ -559,7 +540,6 @@ export const products: Product[] = [
   },
   {
     id: 'ba4f6176-b630-49ae-b7f3-cf0091f9d774',
-    slug: 'ba4f6176-b630-49ae-b7f3-cf0091f9d774',
     name: 'زين لومو 5W-40',
     brand: 'LOMU',
     category: 'Engine Oil',
@@ -583,7 +563,6 @@ export const products: Product[] = [
   },
   {
     id: '1b45e1eb-2363-4383-93ed-04fd604b8479',
-    slug: '1b45e1eb-2363-4383-93ed-04fd604b8479',
     name: 'زيت لومو 15w40',
     brand: 'LOMU',
     category: 'Engine Oil',
@@ -607,7 +586,6 @@ export const products: Product[] = [
   },
   {
     id: 'b3df311c-5720-4c97-993a-c3ab2fa7b6e8',
-    slug: 'b3df311c-5720-4c97-993a-c3ab2fa7b6e8',
     name: 'زيت لومو 10w40',
     brand: 'LOMU',
     category: 'Engine Oil',
@@ -632,7 +610,6 @@ export const products: Product[] = [
   },
   {
     id: 'acf6285e-baac-484d-b7c8-297dd603e40e',
-    slug: 'acf6285e-baac-484d-b7c8-297dd603e40e',
     name: '5W20 4L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -656,7 +633,6 @@ export const products: Product[] = [
   },
   {
     id: '874a4d6e-24f2-45ac-b39c-08cf3089ceae',
-    slug: '874a4d6e-24f2-45ac-b39c-08cf3089ceae',
     name: '20W50 1L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -679,7 +655,6 @@ export const products: Product[] = [
   },
   {
     id: 'da7501ef-cb6b-4d1e-8fe0-439b8e6f01af',
-    slug: 'da7501ef-cb6b-4d1e-8fe0-439b8e6f01af',
     name: '10W40 5L',
     brand: 'king oil',
     category: 'Engine Oil',
@@ -701,3 +676,5 @@ export const products: Product[] = [
     merchantName: 'king oil',
   },
 ]
+
+export const products: Product[] = catalog.map((product) => ({ ...product, slug: product.id }))
