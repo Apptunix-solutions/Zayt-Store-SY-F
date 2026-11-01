@@ -51,7 +51,7 @@
     "jsdom": "^30.0.1",
     "lint-staged": "^17.4.1",
     "npm-run-all2": "^9.0.3",
-    "postcss": "^8.5.6",
+    "postcss": "^8.5.32",
     "prettier": "3.5.3",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.3",
